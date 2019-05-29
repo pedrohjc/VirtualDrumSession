@@ -9,32 +9,60 @@ import javax.swing.JFrame;
 import javax.swing.KeyStroke;
 public class Main {
     public static void main(String[] a) {
+
         String ACTION_KEY = "theAction";
         JFrame frame = new JFrame("KeyStroke Sample");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        JButton buttonA = new JButton("Press Space");
-        Action actionListener = new AbstractAction() {
-            public void actionPerformed(ActionEvent actionEvent) {
-//                JButton source = (JButton) actionEvent.getSource();
-                System.out.println("You pressed Space");
-                MakeSound ms = new MakeSound();
-                ms.playSound("sounds\\Snare.wav");
-            }
-        };
-        KeyStroke space = KeyStroke.getKeyStroke(' ');
-        InputMap inputMap = buttonA.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
-        inputMap.put(space, ACTION_KEY);
-        ActionMap actionMap = buttonA.getActionMap();
-        actionMap.put(ACTION_KEY, actionListener);
+        JButton PressedBtn = new JButton("Press The Keyboard");
 
         KeyStroke c = KeyStroke.getKeyStroke('c');
-        InputMap inputMapc = buttonA.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        KeyStroke x = KeyStroke.getKeyStroke('x');
+        KeyStroke z = KeyStroke.getKeyStroke('z');
+        KeyStroke v = KeyStroke.getKeyStroke('v');
+        KeyStroke s = KeyStroke.getKeyStroke('s');
+        KeyStroke d = KeyStroke.getKeyStroke('d');
+        KeyStroke a1 = KeyStroke.getKeyStroke('a');
+        KeyStroke w = KeyStroke.getKeyStroke('w');
+        KeyStroke e = KeyStroke.getKeyStroke('e');
+        InputMap inputMap = PressedBtn.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.put(c, ACTION_KEY);
-        ActionMap actionMapc = buttonA.getActionMap();
-        actionMapc.put(ACTION_KEY, actionListener);
+        inputMap.put(z, ACTION_KEY);
+        inputMap.put(w, ACTION_KEY);
+        inputMap.put(x, ACTION_KEY);
+        ActionMap actionMap = PressedBtn.getActionMap();
 
-        buttonA.setActionMap(actionMap);
-        frame.add(buttonA);
+
+        //Listener
+        final Action actionListener = new AbstractAction() {
+            public void actionPerformed(ActionEvent actionEvent) {
+//                JButton source = (JButton) actionEvent.getSource();
+                System.out.println("\n" + actionEvent.getActionCommand());
+                String key = actionEvent.getActionCommand();
+                if (key.equalsIgnoreCase("c")){
+                    MakeSound ms = new MakeSound();
+                    ms.playSound("sounds\\Kick.wav");
+                }
+                if (key.equalsIgnoreCase("x")){
+                    MakeSound ms = new MakeSound();
+                    ms.playSound("sounds\\Snare.wav");
+                }
+                if (key.equalsIgnoreCase("z")){
+                    MakeSound ms = new MakeSound();
+                    ms.playSound("sounds\\DDrums_07.wav");
+                }
+                if (key.equalsIgnoreCase("w")){
+                    MakeSound ms = new MakeSound();
+                    ms.playSound("sounds\\Kick.wav");
+                    ms.playSound("sounds\\DDrums_08.wav");
+                }
+
+            }
+        };
+
+        actionMap.put(ACTION_KEY, actionListener);
+
+        PressedBtn.setActionMap(actionMap);
+        frame.add(PressedBtn);
         frame.setSize(400, 200);
         frame.setVisible(true);
     }
