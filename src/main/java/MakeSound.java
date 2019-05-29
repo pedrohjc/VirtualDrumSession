@@ -64,11 +64,12 @@ public class MakeSound {
             if (nBytesRead >= 0) {
                 @SuppressWarnings("unused")
                 int nBytesWritten = sourceLine.write(abData, 0, nBytesRead);
+//                sourceLine.drain();
+                sourceLine.close();
             }
+
         }
 
-        sourceLine.drain();
-        sourceLine.close();
     }
 
 }
